@@ -60,17 +60,21 @@ public class TestGuitarString  {
         s.pluck();
 
         // Record the front four values, ticcing as we go.
+        // s1, s2, s3, s4
         double s1 = s.sample();
         s.tic();
+        // s2, s3, s4, (s1, s2)
         double s2 = s.sample();
-        s.tic(); 
+        s.tic();
+        // s3, s4, (s1, s2), (s2, s3)
         double s3 = s.sample();
         s.tic();
+        // s4, (s1, s2), (s2, s3), (s3, s4)
         double s4 = s.sample();
 
         // If we tic once more, it should be equal to 0.996*0.5*(s1 + s2)
         s.tic();
-
+        // (s1, s2), (s2, s3), (s3, s4), ((s3,s4), s4)
         double s5 = s.sample();
         double expected = 0.996 * 0.5 * (s1 + s2);
 

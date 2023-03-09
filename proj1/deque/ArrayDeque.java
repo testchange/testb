@@ -1,16 +1,69 @@
 package deque;
 
-public class ArrayDeque<T> implements Deque<T>{
+import java.util.Comparator;
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private int size;
-    private T[] items;
-    private int nextFirst;
-    private int nextLast;
+    public T[] items;
+    public int nextFirst;
+    public int nextLast;
 
     public ArrayDeque(){
         size = 0;
         items = (T[]) new Object[8];
         nextFirst = 0;
         nextLast = 1;
+    }
+
+//    //why need static
+//    private static class ReverseCompare implements Comparator<T> {
+//
+//        @Override
+//        public <T extends Comparable<T>> int compare(T o1, T o2) {
+//            return o1.compareTo(o2);
+//        }
+//    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if((obj instanceof ArrayDeque)&& ((Deque) obj).size() == size()){
+            for(int i = 0; i < size; i++){
+                if (((ArrayDeque<?>) obj).get(i) != get(i)){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new AIterator();
+    }
+
+    private class AIterator implements Iterator<T>{
+
+        private int index;
+        private int count;
+
+        public AIterator(){
+            index = (nextFirst + 1) % items.length;
+        }
+
+        @Override
+        public T next() {
+            count += 1;
+            T result = get(index);
+            index = (index + 1) % items.length;
+            return result;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return count < size();
+        }
     }
 
     private void resize(){
