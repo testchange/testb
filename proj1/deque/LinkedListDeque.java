@@ -28,7 +28,8 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     public boolean equals(Object obj) {
         if ((obj instanceof Deque) && ((Deque) obj).size() == size()){
             for(int i = 0; i < size(); i++){
-                if (get(i) != ((Deque) obj).get(i)){
+                //check if the get items are also equal
+                if (get(i).equals(((Deque) obj).get(i)) == false){
                     return false;
                 }
             }

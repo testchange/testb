@@ -1,13 +1,36 @@
 package deque;
 
-import java.util.Comparator;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private int size;
-    public T[] items;
-    public int nextFirst;
-    public int nextLast;
+    private T[] items;
+    private int nextFirst;
+    private int nextLast;
+
+    public T[] getItems(){
+        return items;
+    }
+
+
+    public int nextFirst(){
+        return nextFirst;
+    }
+
+
+    public int nextLast(){
+        return nextLast;
+    }
+
+
+    public void setFirst(int val){
+        nextFirst = val;
+    }
+
+
+    public void setLast(int val){
+        nextLast = val;
+    }
 
     public ArrayDeque(){
         size = 0;
@@ -29,7 +52,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     public boolean equals(Object obj) {
         if((obj instanceof ArrayDeque)&& ((Deque) obj).size() == size()){
             for(int i = 0; i < size; i++){
-                if (((ArrayDeque<?>) obj).get(i) != get(i)){
+                if (get(i).equals(((Deque) obj).get(i)) == false){
                     return false;
                 }
             }
@@ -67,8 +90,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     private void resize(){
+//        System.out.println("resize");
         if (size + 1 > items.length){
-            T[] tmp = (T[]) new Object[size + 5];
+            T[] tmp = (T[]) new Object[size * 2];
+            System.out.println(tmp.length);
             int curr = (nextFirst + 1) % this.items.length ;
 
             for(int i = 0; i < size; i++){
@@ -90,6 +115,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
             curr = (curr + 1) % this.items.length ;
         }
         items = tmp;
+//        System.out.println("resize down");
         nextFirst = items.length - 1;
         nextLast  = size;
     }
@@ -99,7 +125,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         resize();
         items[nextFirst] = item;
         size += 1;
-        nextFirst = (nextFirst - 1) % this.items.length;
+//        nextFirst = (nextFirst - 1) % this.items.length;
+        nextFirst = Math.floorMod((nextFirst - 1), this.items.length);
+//        System.out.println(nextFirst);
     }
 
     @Override
@@ -107,7 +135,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         resize();
         items[nextLast] = item;
         size += 1;
-        nextLast = (nextLast + 1) % this.items.length;
+        nextLast = Math.floorMod((nextLast + 1), this.items.length);
     }
 
     @Override
@@ -117,7 +145,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     @Override
     public void printDeque() {
-        int curr = nextFirst + 1;
+        int curr = Math.floorMod((nextFirst + 1), this.items.length);
         for(int i = 0; i < size; i++){
             System.out.println(items[curr]);
             curr = (curr + 1) % this.items.length ;

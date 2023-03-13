@@ -1,5 +1,6 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -182,5 +183,43 @@ public class ArrayDequeTest {
             assertEquals("Should have the same value",i, expected,0.0);
             expected += 1;
         }
+    }
+
+    @Test
+    public void random(){
+
+        ArrayDeque<Integer> L = new ArrayDeque<Integer>();
+
+        int N = 10000;
+        for (int i = 0; i < N; i += 1) {
+            int operationNumber = StdRandom.uniform(0, 3);
+            int randVal = StdRandom.uniform(0, 100);
+            if (operationNumber == 0) {
+                // addLast
+//                System.out.println("call add last");
+                L.addLast(randVal);
+//                System.out.println("addLast(" + randVal + ")");
+            } else if (operationNumber == 1) {
+                // size
+//                System.out.println("call add first");
+                L.addFirst(randVal);
+//                System.out.println("size: " + size);
+            } else if (operationNumber == 2) {
+//                System.out.println("call remove first");
+                L.removeFirst();
+            }
+        }
+    }
+
+    @Test
+    public void test(){
+        ArrayDeque<Integer> L = new ArrayDeque<Integer>();
+
+        int N = 10000;
+        for (int i = 0; i < N; i += 1) {
+            L.addLast(0);
+        }
+        assertEquals("Should be the same: ", (int) L.get(0),0 );
+
     }
 }
