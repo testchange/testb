@@ -32,7 +32,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         nextLast = val;
     }
 
-    protected ArrayDeque(){
+    public ArrayDeque(){
         size = 0;
         items = (T[]) new Object[8];
         nextFirst = 0;
