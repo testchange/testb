@@ -40,6 +40,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
         public AIterator(){
             index = (nextFirst + 1) % items.length;
+            count = 0;
         }
 
         @Override
