@@ -12,23 +12,18 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         private Node next;
         private Node prev;
 
-        //check constructor
         public Node(T elem){
             item = elem;
-            //add sentinel node
             next = null;
             prev = null;
         }
 
-//        public void addLast(T first){
-//        }
     }
 
     @Override
     public boolean equals(Object obj) {
         if ((obj instanceof Deque) && ((Deque) obj).size() == size()){
             for(int i = 0; i < size(); i++){
-                //check if the get items are also equal
                 if (get(i).equals(((Deque) obj).get(i)) == false){
                     return false;
                 }
@@ -66,7 +61,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
 
-    //constructor
     public LinkedListDeque() {
         first = new Node(null);
         first.next = first;
@@ -77,12 +71,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     public void addFirst(T elem){
         Node<T> entry = new Node(elem);
         Node<T> tmp = this.first.next;
-        // convention start with the existing node prev
         tmp.prev = entry;
-        // adjust the entry connection
-        entry.prev = this.first; //connect with the sentinel
+        entry.prev = this.first;
         entry.next = tmp;
-        // end with the sentinel node connection
         this.first.next = entry;
         size += 1;
     }
@@ -117,7 +108,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T removeFirst(){
-        //guard clause forbidden
         if (size == 0){
             return null;
         }
@@ -140,7 +130,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         Node<T> to_be_last = to_be_removed.prev;
         first.prev = to_be_last;
         to_be_last.next = first;
-        //nullify
         to_be_removed.next = null;
         to_be_removed.prev = null;
         size -=1;

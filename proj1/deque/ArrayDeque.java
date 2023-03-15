@@ -8,45 +8,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private int nextFirst;
     private int nextLast;
 
-//    T[] getItems(){
-//        return items;
-//    }
-//
-//
-//    int nextFirst(){
-//        return nextFirst;
-//    }
-//
-//
-//    private int nextLast(){
-//        return nextLast;
-//    }
-//
-//
-//    private void setFirst(int val){
-//        nextFirst = val;
-//    }
-//
-//
-//    private void setLast(int val){
-//        nextLast = val;
-//    }
-
     public ArrayDeque(){
         size = 0;
         items = (T[]) new Object[8];
         nextFirst = 0;
         nextLast = 0;
     }
-
-//    //why need static
-//    private static class ReverseCompare implements Comparator<T> {
-//
-//        @Override
-//        public <T extends Comparable<T>> int compare(T o1, T o2) {
-//            return o1.compareTo(o2);
-//        }
-//    }
 
     @Override
     public boolean equals(Object obj) {
@@ -90,10 +57,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     private void resize(){
-//        System.out.println("resize");
         if (size + 1 > items.length){
             T[] tmp = (T[]) new Object[size * 2];
-//            System.out.println(tmp.length);
             int curr = (nextFirst + 1) % this.items.length ;
 
             for(int i = 0; i < size; i++){
@@ -115,7 +80,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
             curr = (curr + 1) % this.items.length ;
         }
         items = tmp;
-//        System.out.println("resize down");
         nextFirst = items.length - 1;
         nextLast  = size;
     }
@@ -129,9 +93,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         }
         items[nextFirst] = item;
         size += 1;
-//        nextFirst = (nextFirst - 1) % this.items.length;
         nextFirst = Math.floorMod((nextFirst - 1), this.items.length);
-//        System.out.println(nextFirst);
     }
 
     @Override
@@ -162,7 +124,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     @Override
     public T removeLast() {
-        //resize when usasge is
         if (size == 0){
             return null;
         }
