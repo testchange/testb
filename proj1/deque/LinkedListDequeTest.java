@@ -165,7 +165,9 @@ public class LinkedListDequeTest {
             ald1.addLast("tesst");
         }
 
-        assertEquals(lld1.equals(ald1), true);
+//        assertEquals(lld1.equals(ald1), true);
+        assertEquals(ald1.equals(lld1), true);
+
     }
 
     @Test

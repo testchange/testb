@@ -168,6 +168,7 @@ public class ArrayDequeTest {
         }
 
         assertEquals(lld1.equals(ald1), true);
+        assertEquals(ald1.equals(lld1), true);
     }
 
     @Test
@@ -261,5 +262,19 @@ public class ArrayDequeTest {
                 L.removeLast();
             }
         }
+    }
+
+
+    @Test
+    public void getTest(){
+        ArrayDeque<Integer> L = new ArrayDeque<>();
+        L.addFirst(0);
+        L.get(0);
+        L.addLast(2);
+        L.get(0);
+        L.get(1);
+        L.addFirst(5);
+        assertEquals("Should be",(int) L.get(2), 2);
+
     }
 }

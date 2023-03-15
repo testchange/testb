@@ -8,27 +8,27 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private int nextFirst;
     private int nextLast;
 
-    protected T[] getItems(){
+    T[] getItems(){
         return items;
     }
 
 
-    protected int nextFirst(){
+    int nextFirst(){
         return nextFirst;
     }
 
 
-    protected int nextLast(){
+    private int nextLast(){
         return nextLast;
     }
 
 
-    protected void setFirst(int val){
+    private void setFirst(int val){
         nextFirst = val;
     }
 
 
-    protected void setLast(int val){
+    private void setLast(int val){
         nextLast = val;
     }
 
@@ -50,7 +50,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     @Override
     public boolean equals(Object obj) {
-        if((obj instanceof ArrayDeque)&& ((Deque) obj).size() == size()){
+        if((obj instanceof Deque)&& ((Deque) obj).size() == size()){
             for(int i = 0; i < size; i++){
                 if (get(i).equals(((Deque) obj).get(i)) == false){
                     return false;
@@ -197,6 +197,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     @Override
     public T get(int index) {
-        return items[index];
+        int starting = Math.floorMod((nextFirst + 1), this.items.length);
+        int i =  Math.floorMod((index + starting), this.items.length);
+        return items[i];
     }
 }
