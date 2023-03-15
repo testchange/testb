@@ -36,24 +36,27 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private class AIterator implements Iterator<T>{
 
         private int index;
-        private int count;
+//        private int count;
 
         public AIterator(){
-            index = (nextFirst + 1) % items.length;
-            count = 0;
+            index = 0;
+            //            index = (nextFirst + 1) % items.length;
+//            count = 0;
         }
 
         @Override
         public T next() {
-            count += 1;
-            T result = get(index);
-            index = (index + 1) % items.length;
-            return result;
+//            count += 1;
+//            T result = get(index);
+//            index = (index + 1) % items.length;
+            index += 1;
+            return get(index - 1);
         }
 
         @Override
         public boolean hasNext() {
-            return count < size();
+//            System.out.println(count);
+            return index < size();
         }
     }
 
