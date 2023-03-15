@@ -8,29 +8,29 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private int nextFirst;
     private int nextLast;
 
-    T[] getItems(){
-        return items;
-    }
-
-
-    int nextFirst(){
-        return nextFirst;
-    }
-
-
-    private int nextLast(){
-        return nextLast;
-    }
-
-
-    private void setFirst(int val){
-        nextFirst = val;
-    }
-
-
-    private void setLast(int val){
-        nextLast = val;
-    }
+//    T[] getItems(){
+//        return items;
+//    }
+//
+//
+//    int nextFirst(){
+//        return nextFirst;
+//    }
+//
+//
+//    private int nextLast(){
+//        return nextLast;
+//    }
+//
+//
+//    private void setFirst(int val){
+//        nextFirst = val;
+//    }
+//
+//
+//    private void setLast(int val){
+//        nextLast = val;
+//    }
 
     public ArrayDeque(){
         size = 0;
