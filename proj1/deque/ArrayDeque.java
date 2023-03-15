@@ -8,35 +8,35 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private int nextFirst;
     private int nextLast;
 
-    public T[] getItems(){
+    protected T[] getItems(){
         return items;
     }
 
 
-    public int nextFirst(){
+    protected int nextFirst(){
         return nextFirst;
     }
 
 
-    public int nextLast(){
+    protected int nextLast(){
         return nextLast;
     }
 
 
-    public void setFirst(int val){
+    protected void setFirst(int val){
         nextFirst = val;
     }
 
 
-    public void setLast(int val){
+    protected void setLast(int val){
         nextLast = val;
     }
 
-    public ArrayDeque(){
+    protected ArrayDeque(){
         size = 0;
         items = (T[]) new Object[8];
         nextFirst = 0;
-        nextLast = 1;
+        nextLast = 0;
     }
 
 //    //why need static
@@ -93,7 +93,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 //        System.out.println("resize");
         if (size + 1 > items.length){
             T[] tmp = (T[]) new Object[size * 2];
-            System.out.println(tmp.length);
+//            System.out.println(tmp.length);
             int curr = (nextFirst + 1) % this.items.length ;
 
             for(int i = 0; i < size; i++){
@@ -123,6 +123,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     @Override
     public void addFirst(T item) {
         resize();
+        if (size == 0){
+            nextFirst = 0;
+            nextLast = 1;
+        }
         items[nextFirst] = item;
         size += 1;
 //        nextFirst = (nextFirst - 1) % this.items.length;
@@ -133,6 +137,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     @Override
     public void addLast(T item) {
         resize();
+        if (size == 0){
+            nextFirst = Math.floorMod(-1, this.items.length);;
+            nextLast = 0;
+        }
         items[nextLast] = item;
         size += 1;
         nextLast = Math.floorMod((nextLast + 1), this.items.length);
@@ -162,7 +170,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         if (items.length >= 16 && usage < 0.25){
             resize_down();
         }
-        int index = (nextLast - 1) % items.length;
+        int index = Math.floorMod((nextLast - 1), this.items.length);
         T to_be_removed = items[index];
         items[index] = null;
         nextLast = index;

@@ -212,14 +212,54 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void test(){
+    public void testLast(){
+        ArrayDeque<Integer> L = new ArrayDeque<Integer>();
+
+        int N = 7;
+        for (int i = 0; i < N; i += 1) {
+            L.addLast(3);
+        }
+        assertEquals("Should be the same: ", (int) L.get(0),3 );
+
+    }
+
+
+    @Test
+    public void testLastFirst(){
+        ArrayDeque<Integer> L = new ArrayDeque<Integer>();
+
+        int N = 7;
+        for (int i = 0; i < N; i += 1) {
+            L.addLast(3);
+        }
+
+        assertEquals("Should be the same: ", (int) L.removeFirst(),3 );
+        assertEquals("Should be the same: ", (int) L.removeLast(),3 );
+
+    }
+
+    @Test
+    public void randomAddRemoveEmpty(){
         ArrayDeque<Integer> L = new ArrayDeque<Integer>();
 
         int N = 10000;
         for (int i = 0; i < N; i += 1) {
-            L.addLast(0);
+            int operationNumber = StdRandom.uniform(0, 3);
+            int randVal = StdRandom.uniform(0, 100);
+            if (operationNumber == 0) {
+                // addLast
+//                System.out.println("call add last");
+                L.get(0);
+//                System.out.println("addLast(" + randVal + ")");
+            } else if (operationNumber == 1) {
+                // size
+//                System.out.println("call add first");
+                L.addLast(randVal);
+//                System.out.println("size: " + size);
+            } else if (operationNumber == 2) {
+//                System.out.println("call remove first");
+                L.removeLast();
+            }
         }
-        assertEquals("Should be the same: ", (int) L.get(0),0 );
-
     }
 }

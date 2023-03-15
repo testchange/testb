@@ -5,9 +5,9 @@ import java.util.Iterator;
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     private Node<T> first;
-    public int size;
+    private int size;
 
-    public static class Node<T> {
+    private static class Node<T> {
         private T item;
         private Node next;
         private Node prev;
@@ -95,14 +95,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         entry.prev = _last;
         this.first.prev = entry;
         size += 1;
-    }
-
-    public boolean isEmpty(){
-        if(size == 0){
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public int size(){
