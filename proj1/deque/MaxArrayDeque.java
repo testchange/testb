@@ -16,9 +16,10 @@ public class MaxArrayDeque<T> extends ArrayDeque<T>{
             return null;
         }
         T first = get(0);
-        for(T i : this){
-            if (comp.compare(first, i) < 0){
-                first = i;
+        for(int i = 0; i < this.size(); i++){
+            T k = get(0);
+            if (comp.compare(first, k) < 0){
+                first = k;
             }
         }
         return first;
@@ -29,9 +30,10 @@ public class MaxArrayDeque<T> extends ArrayDeque<T>{
             return null;
         }
         T first = get(0);
-        for(T i : this){
-            if (c.compare(first, i) < 0){
-                first = i;
+        for(int i = 0; i < this.size(); i++){
+            T k = get(0);
+            if (c.compare(first, k) < 0){
+                first = k;
             }
         }
         return first;
