@@ -43,7 +43,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         private Node<T> ll;
         private int idx;
 
-        public LLIterator(Node<T> entry) {
+        LLIterator(Node<T> entry) {
             ll = entry;
             idx = 0;
         }
@@ -127,9 +127,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
         Node<T> toBeRemoved = this.first.prev;
-        Node<T> to_be_last = toBeRemoved.prev;
-        first.prev = to_be_last;
-        to_be_last.next = first;
+        Node<T> toBeLast = toBeRemoved.prev;
+        first.prev = toBeLast;
+        toBeLast.next = first;
         toBeRemoved.next = null;
         toBeRemoved.prev = null;
         size -= 1;
@@ -150,11 +150,11 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return (T) helper(first.next, index);
     }
 
-    private T helper(Node<T> first, int index) {
+    private T helper(Node<T> val, int index) {
         if (index == 0) {
-            return first.item;
+            return val.item;
         }
-        return (T) helper(first.next, index - 1);
+        return (T) helper(val.next, index - 1);
     }
 
 }

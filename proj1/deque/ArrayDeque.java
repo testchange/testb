@@ -120,7 +120,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public void printDeque() {
         int curr = Math.floorMod((nextFirst + 1), this.items.length);
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             System.out.println(items[curr]);
             curr = (curr + 1) % this.items.length;
         }
@@ -149,7 +149,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
         double usage = (double) (size - 1) / (items.length);
-        if (items.length >= 16 && usage < 0.25){
+        if (items.length >= 16 && usage < 0.25) {
             resizeDown();
         }
         int index = (nextFirst + 1) % items.length;
