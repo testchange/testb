@@ -2,13 +2,13 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private T[] items;
     private int nextFirst;
     private int nextLast;
 
-    public ArrayDeque(){
+    public ArrayDeque() {
         size = 0;
         items = (T[]) new Object[8];
         nextFirst = 0;
@@ -17,9 +17,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     @Override
     public boolean equals(Object obj) {
-        if((obj instanceof Deque)&& ((Deque) obj).size() == size()){
-            for(int i = 0; i < size; i++){
-                if (get(i).equals(((Deque) obj).get(i)) == false){
+        if ((obj instanceof Deque) && ((Deque) obj).size() == size()) {
+            for (int i = 0; i < size; i++) {
+                if (!get(i).equals(((Deque) obj).get(i))) {
                     return false;
                 }
             }
@@ -33,12 +33,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         return new AIterator();
     }
 
-    private class AIterator implements Iterator<T>{
+    private class AIterator implements Iterator<T> {
 
         private int index;
 //        private int count;
 
-        public AIterator(){
+        AIterator() {
             index = 0;
             //            index = (nextFirst + 1) % items.length;
 //            count = 0;
@@ -60,14 +60,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         }
     }
 
-    private void resize(){
-        if (size + 1 > items.length){
+    private void resize() {
+        if (size + 1 > items.length) {
             T[] tmp = (T[]) new Object[size * 2];
-            int curr = (nextFirst + 1) % this.items.length ;
+            int curr = (nextFirst + 1) % this.items.length;
 
-            for(int i = 0; i < size; i++){
+            for (int i = 0; i < size; i++) {
                 tmp[i] = items[curr];
-                curr = (curr + 1) % this.items.length ;
+                curr = (curr + 1) % this.items.length;
             }
             items = tmp;
             nextFirst = items.length - 1;
@@ -75,13 +75,13 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         }
     }
 
-    private void resize_down(){
+    private void resizeDown() {
         T[] tmp = (T[]) new Object[items.length / 2];
-        int curr = (nextFirst + 1) % this.items.length ;
+        int curr = (nextFirst + 1) % this.items.length;
 
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             tmp[i] = items[curr];
-            curr = (curr + 1) % this.items.length ;
+            curr = (curr + 1) % this.items.length;
         }
         items = tmp;
         nextFirst = items.length - 1;
@@ -91,7 +91,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     @Override
     public void addFirst(T item) {
         resize();
-        if (size == 0){
+        if (size == 0) {
             nextFirst = 0;
             nextLast = 1;
         }
@@ -103,8 +103,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     @Override
     public void addLast(T item) {
         resize();
-        if (size == 0){
-            nextFirst = Math.floorMod(-1, this.items.length);;
+        if (size == 0) {
+            nextFirst = Math.floorMod(-1, this.items.length);
             nextLast = 0;
         }
         items[nextLast] = item;
@@ -120,44 +120,44 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     @Override
     public void printDeque() {
         int curr = Math.floorMod((nextFirst + 1), this.items.length);
-        for(int i = 0; i < size; i++){
+        for(int i = 0; i < size; i++) {
             System.out.println(items[curr]);
-            curr = (curr + 1) % this.items.length ;
+            curr = (curr + 1) % this.items.length;
         }
     }
 
     @Override
     public T removeLast() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
-        double usage = (double) (size-1)/(items.length);
-        if (items.length >= 16 && usage < 0.25){
-            resize_down();
+        double usage = (double) (size - 1) / (items.length);
+        if (items.length >= 16 && usage < 0.25) {
+            resizeDown();
         }
         int index = Math.floorMod((nextLast - 1), this.items.length);
-        T to_be_removed = items[index];
+        T toBeRemoved = items[index];
         items[index] = null;
         nextLast = index;
         size -= 1;
-        return to_be_removed;
+        return toBeRemoved;
     }
 
     @Override
     public T removeFirst() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
-        double usage = (double) (size-1)/(items.length);
+        double usage = (double) (size - 1) / (items.length);
         if (items.length >= 16 && usage < 0.25){
-            resize_down();
+            resizeDown();
         }
         int index = (nextFirst + 1) % items.length;
-        T to_be_removed = items[index];
+        T toBeRemoved = items[index];
         items[index] = null;
         nextFirst = index;
         size -= 1;
-        return to_be_removed;
+        return toBeRemoved;
     }
 
     @Override

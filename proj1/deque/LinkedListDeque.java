@@ -12,7 +12,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         private Node next;
         private Node prev;
 
-        public Node(T elem){
+        Node(T elem) {
             item = elem;
             next = null;
             prev = null;
@@ -22,9 +22,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public boolean equals(Object obj) {
-        if ((obj instanceof Deque) && ((Deque) obj).size() == size()){
-            for(int i = 0; i < size(); i++){
-                if (get(i).equals(((Deque) obj).get(i)) == false){
+        if ((obj instanceof Deque) && ((Deque) obj).size() == size()) {
+            for (int i = 0; i < size(); i++) {
+                if (!get(i).equals(((Deque) obj).get(i))) {
                     return false;
                 }
             }
@@ -34,7 +34,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public Iterator<T> iterator(){
+    public Iterator<T> iterator() {
         return new LLIterator(first);
     }
 
@@ -43,7 +43,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         private Node<T> ll;
         private int idx;
 
-        public LLIterator(Node<T> entry){
+        public LLIterator(Node<T> entry) {
             ll = entry;
             idx = 0;
         }
@@ -52,7 +52,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         public T next() {
             idx += 1;
             ll = ll.next;
-            return get(idx-1);
+            return get(idx - 1);
         }
 
         @Override
@@ -68,7 +68,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         size = 0;
     }
 
-    public void addFirst(T elem){
+    public void addFirst(T elem) {
         Node<T> entry = new Node(elem);
         Node<T> tmp = this.first.next;
         tmp.prev = entry;
@@ -78,28 +78,28 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         size += 1;
     }
 
-    public void addLast(T elem){
+    public void addLast(T elem) {
         Node<T> entry = new Node(elem);
-        Node<T> _last = this.first.prev;
-        _last.next = entry;
+        Node<T> last = this.first.prev;
+        last.next = entry;
         entry.next = this.first;
-        entry.prev = _last;
+        entry.prev = last;
         this.first.prev = entry;
         size += 1;
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
-    public void printDeque(){
-        if (size == 0){
+    public void printDeque() {
+        if (size == 0) {
             System.out.println("Empty Deque");
             return;
         }
         Node<T> curr = this.first.next;
         String accumulator = curr.item.toString();
-        for(int i = 1; i < size; i ++){
+        for (int i = 1; i < size; i++) {
             accumulator = accumulator + " " + curr.item.toString();
             curr = curr.next;
         }
@@ -107,39 +107,39 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         System.out.println(accumulator);
     }
 
-    public T removeFirst(){
-        if (size == 0){
+    public T removeFirst() {
+        if (size == 0) {
             return null;
         }
-        Node<T> to_be_removed = this.first.next;
-        Node<T> to_be_first = to_be_removed.next;
-        first.next = to_be_first;
-        to_be_first.prev = first;
+        Node<T> toBeRemoved = this.first.next;
+        Node<T> toBeFirst = toBeRemoved.next;
+        first.next = toBeFirst;
+        toBeFirst.prev = first;
         //nullify
-        to_be_removed.next = null;
-        to_be_removed.prev = null;
+        toBeRemoved.next = null;
+        toBeRemoved.prev = null;
         size -= 1;
-        return to_be_removed.item;
+        return toBeRemoved.item;
     }
 
-    public T removeLast(){
-        if (size == 0){
+    public T removeLast() {
+        if (size == 0) {
             return null;
         }
-        Node<T> to_be_removed = this.first.prev;
-        Node<T> to_be_last = to_be_removed.prev;
+        Node<T> toBeRemoved = this.first.prev;
+        Node<T> to_be_last = toBeRemoved.prev;
         first.prev = to_be_last;
         to_be_last.next = first;
-        to_be_removed.next = null;
-        to_be_removed.prev = null;
-        size -=1;
-        return to_be_removed.item;
+        toBeRemoved.next = null;
+        toBeRemoved.prev = null;
+        size -= 1;
+        return toBeRemoved.item;
     }
 
-    public T get(int index){
+    public T get(int index) {
         Node<T> curr = first.next;
         T result = null;
-        for(int i = 0; i <= index; i ++) {
+        for (int i = 0; i <= index; i++) {
             result = curr.item;
             curr = curr.next;
         }
@@ -150,11 +150,11 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return (T) helper(first.next, index);
     }
 
-    private T helper(Node<T> first, int index){
-        if (index == 0){
+    private T helper(Node<T> first, int index) {
+        if (index == 0) {
             return first.item;
         }
-        return (T) helper(first.next, index-1);
+        return (T) helper(first.next, index - 1);
     }
 
 }

@@ -3,10 +3,10 @@ package deque;
 import java.util.Comparator;
 
 public class Dog implements Comparable<Dog> {
-    public int size;
-    public String name;
+    private int size;
+    private String name;
 
-    public Dog(int size, String name){
+    public Dog(int size, String name) {
         this.size = size;
         this.name = name;
     }
